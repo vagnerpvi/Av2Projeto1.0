@@ -15,16 +15,20 @@
 	<header>
 		<nav class="nav-bar navbar-expand-md navbar-dark"
 			style="background-color: blue">
-			<ul>
-				<li><a href=" <%=request.getContextPath()%>/listaAlunos"
-					class="nav-link"><button class="btn btn success">LISTA
-							alunos</button></a></li>
-			</ul>
-				<ul>
-				<li><a href=" <%=request.getContextPath()%>/home"
-					class="nav-link"><button class="btn btn success">LISTA
-							alunos</button></a></li>
-			</ul>
+
+			<li><a href=" <%=request.getContextPath()%>/listaAlunos"
+				class="nav-link"><button class="btn btn success">LISTA
+						ALUNOS</button></a></li>
+		</nav>
+		<div class="row">
+
+			<div class="container">
+				<div class="container text-left">
+					<a href=" <%=request.getContextPath()%>/home" class="nav-link"><button
+							align: center class="btn btn success">HOME</button></a>
+				</div>
+			</div>
+		</div>
 	</header>
 	<div class="row">
 
@@ -86,7 +90,7 @@
 						<button type="submit" class="btn btn-success">Salvar</button>
 
 						</form>
-						
+
 					</div>
 				</div>
 			</div>

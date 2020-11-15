@@ -34,6 +34,8 @@ public class AlunoDao {
 
 		ps.execute();
 
+		
+
 	}
 
 // select aluno por ID
@@ -47,13 +49,16 @@ public class AlunoDao {
 		ResultSet rs = ps.executeQuery();
 
 		if (rs.next()) {
-          
+
 			String nome = rs.getString("nome");
 			String curso = rs.getString("curso");
 			Integer id_professor = rs.getInt("id_professor");
 
 			aluno = new Aluno(id_aluno, nome, curso, id_professor);
+			
 		}
+
+		
 		return aluno;
 
 	}
@@ -61,12 +66,11 @@ public class AlunoDao {
 	// select todos os Alunos
 	public List<Aluno> listarAlunos() throws SQLException, ClassNotFoundException {
 
-		
 		Connection conexao = ConexaoJDBCFactory.getConexao();
 		List<Aluno> aluno = new ArrayList<>();
 		PreparedStatement ps = conexao.prepareStatement(SELECT_ALL_ALUNOS);
 		ResultSet rs = ps.executeQuery();
-	
+
 		while (rs.next()) {
 
 			int id_aluno = rs.getInt("id_aluno");
@@ -75,7 +79,7 @@ public class AlunoDao {
 			int id_professor = rs.getInt("id_professor");
 
 			aluno.add(new Aluno(id_aluno, nome, curso, id_professor));
-
+			
 		}
 		return aluno;
 	}
@@ -87,16 +91,17 @@ public class AlunoDao {
 		Connection conexao = ConexaoJDBCFactory.getConexao();
 
 		PreparedStatement ps = conexao.prepareStatement(UPDATE_ALUNO_SQL);
-		
+
 		ps.setString(1, aluno.getNome());
 		ps.setString(2, aluno.getCurso());
 		ps.setInt(3, aluno.getId_professor());
 		ps.setInt(4, aluno.getId_aluno());
-		
-		
-		
-		return rowUpdate = ps.executeUpdate() > 0;
 
+		
+	rowUpdate = ps.executeUpdate() > 0;
+
+		return rowUpdate;
+		
 	}
 
 	public boolean excluirAluno(Integer id_aluno) throws SQLException, ClassNotFoundException {
@@ -104,12 +109,13 @@ public class AlunoDao {
 
 		Connection conexao = ConexaoJDBCFactory.getConexao();
 		PreparedStatement statement = conexao.prepareStatement(DELETE_ALUNO_SQL);
-		
-		
+
 		statement.setInt(1, id_aluno);
+	
+       
+		rowDeletada = statement.executeUpdate() > 0;
 
-		return rowDeletada = statement.executeUpdate() > 0;
-
+		return rowDeletada;
 	}
 
 }

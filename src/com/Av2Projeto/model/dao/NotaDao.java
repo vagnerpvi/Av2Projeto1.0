@@ -64,10 +64,12 @@ public class NotaDao {
 			int id_turma = rs.getInt("id_turma");
 
 			nota = new Nota(id_nota, av1, av2, av3, aps_1, aps_2, media, id_aluno, id_turma);
+			
 		}
-		
+
+	
 		return nota;
-       
+
 	}
 
 	// select todos os Alunos
@@ -91,9 +93,9 @@ public class NotaDao {
 			int id_turma = rs.getInt("id_turma");
 
 			nota.add(new Nota(id_nota, av1, av2, av3, aps_1, aps_2, media, id_aluno, id_turma));
-
+			
 		}
-	
+		
 		return nota;
 	}
 
@@ -115,8 +117,10 @@ public class NotaDao {
 		ps.setInt(8, nota.getId_turma());
 		ps.setInt(9, nota.getId_nota());
 
-		return rowUpdate = ps.executeUpdate() > 0;
+		rowUpdate = ps.executeUpdate() > 0;
+
 		
+		return rowUpdate;
 
 	}
 
@@ -128,7 +132,9 @@ public class NotaDao {
 
 		statement.setInt(1, id_nota);
 
-		return rowDeletada = statement.executeUpdate() > 0;
+		rowDeletada = statement.executeUpdate() > 0;
+		
+		return rowDeletada;
 
 	}
 

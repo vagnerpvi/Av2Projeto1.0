@@ -16,8 +16,8 @@
 			style="background-color: blue">
 			<ul>
 				<li><a href=" <%=request.getContextPath()%>/listaAlunos"
-					class="nav-link"><button class="btn btn-success">Lista
-							Alunos</button></a></li>
+					class="nav-link"><button class="btn btn-success">LISTA
+							ALUNOS</button></a></li>
 			</ul>
 	</header>
 	<div class="row">
@@ -26,7 +26,7 @@
 
 			<div class="container text-left">
 				<a href=" <%=request.getContextPath()%>/novoAluno" class="nav-link"><button
-						class="btn btn-success">Adicionar Aluno</button></a>
+						class="btn btn-success">ADICIONAR ALUNO</button></a>
 			</div>
 
 
@@ -52,7 +52,8 @@
 					<td><c:out value="${aluno.nome}" /></td>
 					<td><c:out value="${aluno.curso}" /></td>
 					<td><c:out value="${aluno.id_professor}" /></td>
-					<td><a href="editarAluno?id_aluno=<c:out value='${aluno.id_aluno}'/>">Editar</a></td>
+					<td><a
+						href="editarAluno?id_aluno=<c:out value='${aluno.id_aluno}'/>">Editar</a></td>
 					<td><a
 						href="deletarAluno?id_aluno=<c:out value='${aluno.id_aluno}'/>">Deletar</a></td>
 
