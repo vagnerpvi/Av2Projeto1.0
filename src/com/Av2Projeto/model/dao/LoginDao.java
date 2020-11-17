@@ -14,8 +14,9 @@ public class LoginDao {
 	private static final String INSERT_LOGIN_SQL = "insert into login(matricula,senha,id_aluno,id_professor)values(?,?,?,?)";
 	private static final String SELECT_LOGIN_BY_ID = "select id_login,id_aluno,id_professor from login where id_login =?";
 	private static final String SELECT_ALL_LOGIN = "select*from login";
-	private static final String DELETE_LOGIN_SQL = "delete from login where id_login=?";
-	private static final String UPDATE_LOGIN_SQL = "update login set matricula=?, senha=?, id_aluno =?,id_professor =?  where id_login=?";
+	private static final String SELECT_VALIDACAO = "select*from login where matricula =? and senha=? ";
+	private static final String DELETE_LOGIN_SQL = "delete from login where matricula=?";
+	private static final String UPDATE_LOGIN_SQL = "update login set matricula=?, senha=?, id_aluno =?,id_professor =?  where matricula=?";
 
 	public LoginDao() {
 		super();
@@ -30,37 +31,65 @@ public class LoginDao {
 
 		ps.setString(1, login.getMatricula());
 		ps.setString(2, login.getSenha());
-		ps.setInt(3, login.getId_aluno());
-		ps.setInt(4, login.getId_professor());
+		
 
 		System.out.println("matricula DAO" + login.getMatricula());
 		System.out.println("senha DAO" + login.getSenha());
-		System.out.println("id_aluno DAO" + login.getId_aluno());
-		System.out.println("id_professor DAO" + login.getId_professor());
+		
 		System.out.println();
 
 		ps.execute();
 
 	}
 
+	public boolean validar(Login login) throws ClassNotFoundException, SQLException {
+		boolean status = false;
+
+		try {
+			Connection conexao = ConexaoJDBCFactory.getConexao();
+			PreparedStatement ps = conexao.prepareStatement(SELECT_VALIDACAO);
+
+			ps.setString(1, login.getMatricula());
+			ps.setString(2, login.getSenha());
+
+			System.out.println("matricula DAO" + login.getMatricula());
+			System.out.println("senha DAO" + login.getSenha());
+
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				status=true;
+				login.setMatricula("matricula");
+				login.setSenha("senha");
+			}
+			if(status) {
+				return status;
+		 }else {
+			 return status;
+		 }	
+			
+		} catch (SQLException e) {
+			System.out.println("" + e);
+		}
+		return status;
+	}
+
 // select aluno por ID
-	public Login selectById(Integer id_login) throws SQLException, ClassNotFoundException {
+	public Login selectById(String matricula) throws SQLException, ClassNotFoundException {
 		Login login = null;
 		Connection conexao = ConexaoJDBCFactory.getConexao();
 
 		PreparedStatement ps = conexao.prepareStatement(SELECT_LOGIN_BY_ID);
 
-		ps.setInt(1, id_login);
+		ps.setString(1, matricula);
 		ResultSet rs = ps.executeQuery();
 
 		if (rs.next()) {
-
-			String matricula = rs.getString("matricula");
+			String matricula1 = rs.getString("matricula");
 			String senha = rs.getString("senha");
-			Integer id_aluno = rs.getInt("id_aluno");
-			Integer id_professor = rs.getInt("id_professor");
+			
 
-			login = new Login(id_login, matricula, senha, id_aluno, id_professor);
+			login = new Login(matricula1, senha);
 		}
 		return login;
 
@@ -76,13 +105,11 @@ public class LoginDao {
 
 		while (rs.next()) {
 
-			int id_login = rs.getInt("id_login");
 			String matricula = rs.getString("matricula");
 			String senha = rs.getString("senha");
-			int id_aluno = rs.getInt("id_aluno");
-			int id_professor = rs.getInt("id_professor");
+			
 
-			login.add(new Login(id_aluno, matricula, senha, id_aluno, id_professor));
+			login.add(new Login(matricula,senha));
 
 		}
 		return login;
@@ -98,21 +125,19 @@ public class LoginDao {
 
 		ps.setString(1, login.getMatricula());
 		ps.setString(2, login.getSenha());
-		ps.setInt(3, login.getId_aluno());
-		ps.setInt(4, login.getId_professor());
-		ps.setInt(5, login.getId_login());
+		
 
 		return rowUpdate = ps.executeUpdate() > 0;
 
 	}
 
-	public boolean excluirLogin(Integer id_login) throws SQLException, ClassNotFoundException {
+	public boolean excluirLogin(String matricula) throws SQLException, ClassNotFoundException {
 		boolean rowDeletada;
 
 		Connection conexao = ConexaoJDBCFactory.getConexao();
 		PreparedStatement statement = conexao.prepareStatement(DELETE_LOGIN_SQL);
 
-		statement.setInt(1, id_login);
+		statement.setString(1, matricula);
 
 		return rowDeletada = statement.executeUpdate() > 0;
 

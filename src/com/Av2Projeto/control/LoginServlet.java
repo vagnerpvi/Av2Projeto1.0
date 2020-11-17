@@ -12,50 +12,64 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.Av2Projeto.model.dao.ConexaoJDBCFactory;
 import com.Av2Projeto.model.dao.LoginDao;
 import com.Av2Projeto.model.domain.Login;
 
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet(urlPatterns = { "/login", "/novoLogin", "/inserirLogin", "/deletarLogin", "/editarLogin", "/atualizarLogin",
-		"/listaLogin" })
+@WebServlet( name="validar",urlPatterns = { "/validar"})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private LoginDao loginDao = new LoginDao();
-
-	public LoginServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/*
-	 */
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-	}
 	
+
+	public void init() throws ServletException {
+		
+		boolean result;
+		 ConexaoJDBCFactory con = new  ConexaoJDBCFactory();
+		         
+		try {
+			result= con.Cria_Database_Completa();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		doGet(request, response);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+	       
+	
 		String acao = request.getServletPath();
 
 		switch (acao) {
 
-		case "/novoLogin":
-			showHome(request, response);
+		case "/Login":
+			Login(request, response);
 
 			break;
-		case "/inserirLogin":
-			adicionarLogin(request, response);
+		case "/validar":
+		
+			try {
+				validarLogin(request, response);
+			} catch (ClassNotFoundException | SQLException | IOException | ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 			break;
 
 		case "/deletarLogin":
@@ -82,50 +96,46 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	// FORMULARIO ALUNO
-	private void showHome(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 		dispatcher.forward(request, response);
+		
 	}
+	
 
 	// ADICIONAR
-	private void adicionarLogin(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		String matricula = request.getParameter("matricula");
-		String senha = request.getParameter("senha");
-		Integer id_aluno = Integer.parseInt(request.getParameter("id_aluno"));
-		Integer id_professor = Integer.parseInt(request.getParameter("id_professor"));
+	private void validarLogin(HttpServletRequest request, HttpServletResponse response)
+			throws ClassNotFoundException, SQLException, IOException, ServletException {
 		
-	System.out.println("matricula"+matricula);
-	System.out.println("senha"+senha);
-	System.out.println("id_aluno"+id_aluno);
-	System.out.println("id_professor"+id_professor);
-	  
+		
 
-		Login login = new Login(null, matricula, senha, id_aluno, id_professor);
+			String matricula = request.getParameter("matricula");
+			String senha = request.getParameter("senha");
 
-		try {
-			loginDao.AdicionarLogin(login);
-			//response.sendRedirect("listaLogin");
-			request.setAttribute("mensagem", "Login Salvo com Sucesso");
-		} catch (SQLException e) {
-			request.setAttribute("mensagem", "ERRO DE BANCO DE DADOS" + e.getMessage());
-		} catch (ClassNotFoundException e) {
-			request.setAttribute("mensagem", "ERRO DE DRIVE" + e.getMessage());
+			Login login = new Login(matricula,senha);
+			
 
+			System.out.println("matricula" + matricula);
+			System.out.println("senha" + senha);
+
+			if (loginDao.validar(login)) {
+				request.getRequestDispatcher("menu.jsp").forward(request, response);
+			} else {
+
+				request.getRequestDispatcher("login.jsp").forward(request, response);
+				;
+			}	
 		}
-
-	}
+	
 
 	// DELETAR ALUNO
 	private void delatarLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int id_login = Integer.parseInt(request.getParameter("id_login"));
+		String matricula = (request.getParameter("matricula"));
 
 		try {
-			loginDao.excluirLogin(id_login);
+			loginDao.excluirLogin(matricula);
 
 			response.sendRedirect("listaLogin");
 
@@ -143,12 +153,12 @@ public class LoginServlet extends HttpServlet {
 	private void editarLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int id_login = Integer.parseInt(request.getParameter("id_login"));
+		String matricula = (request.getParameter("matricula"));
 		Login existelogin;
 		try {
-			existelogin = loginDao.selectById(id_login);
+			existelogin = loginDao.selectById(matricula);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/nota-list.jsp");
-			request.setAttribute("nota", existelogin);
+			request.setAttribute("login", existelogin);
 			dispatcher.forward(request, response);
 			request.setAttribute("mensagem", "Login atualizado com Sucesso");
 			request.setAttribute("aluno", loginDao.listarLogin());
@@ -164,14 +174,12 @@ public class LoginServlet extends HttpServlet {
 	// ATUALIVAR ALUNO
 	private void atualizarLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Integer id_login = Integer.parseInt(request.getParameter("id_login"));
 
 		String matricula = request.getParameter("matricula");
 		String senha = request.getParameter("senha");
-		Integer id_aluno = Integer.parseInt(request.getParameter("id_aluno"));
-		Integer id_professor = Integer.parseInt(request.getParameter("id_professor"));
+		
 
-		Login login = new Login(id_login, matricula, senha, id_aluno, id_professor);
+		Login login = new Login(matricula, senha);
 
 		try {
 			loginDao.atualizarLogin(login);
@@ -201,7 +209,5 @@ public class LoginServlet extends HttpServlet {
 		}
 
 	}
-
-	
 
 }

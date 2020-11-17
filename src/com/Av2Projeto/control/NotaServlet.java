@@ -23,7 +23,12 @@ public class NotaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	private NotaDao notaDao = new NotaDao();
+	private NotaDao notaDao;
+	
+	public void init() {
+		
+		notaDao = new NotaDao();
+	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -31,65 +31,23 @@
 				<div card="card">
 					<div card="card-body">
 
-						<c:if test='${login != null}'>
-							<form action="atualizarLogin" method="get">
-						</c:if>
-
-						<c:if test='${login == null}'>
-							<form action="inserirLogin" method="get">
-						</c:if>
-
-						<caption>
-
-							<h2>
-								<c:if test='${login != null}'>
-									<h2 style="text-align: center">EDITAR LOGIN</h2>
-								</c:if>
-
-
-								<c:if test="${login == null}">
-									<h2 style="text-align: center">ADICIONAR LOGIN</h2>
-								</c:if>
-
-							</h2>
-
-						</caption>
-						
-						
-							<c:if test="${login != null}">
-								<input type="hidden" value="<c:out value='${login.id_login}'/>"
-									name="id_login" />
-
-							</c:if>
+						<form action="<%=request.getContextPath()%>/validar" method="get">
 
 
 							<fieldset class="form-group">
 								<label for="text">Matricula:</label> <input type="text"
-									value="<c:out value='${login.matricula}'/>"
 									class="form-control" placeholder="Enter Matricula"
 									id="matricula" name="matricula">
 							</fieldset>
 
 							<fieldset class="form-group">
 								<label for="pwd">Senha:</label> <input type="password"
-									value="<c:out value='${login.senha}'/>" class="form-control"
-									placeholder="Enter Senha" id="senha"  name="senha">
-							</fieldset>
-
-
-							<fieldset class="form-group">
-								<label>ID Aluno:</label> <input type="text"
-									value="<c:out value='${login.id_aluno}'/>" class="form-control"
-									name="id_aluno" />
-							</fieldset>
-
-							<fieldset class="form-group">
-								<label>ID Professor:</label> <input type="text"
-									value="<c:out value='${login.id_professor}'/>"
-									class="form-control" name="id_professor" />
+									class="form-control" placeholder="Enter Senha" id="senha"
+									name="senha">
 							</fieldset>
 
 							<button type="submit" class="btn btn-success">Salvar</button>
+							<button type="submit" class="btn btn-success">Cadastrar</button>
 
 						</form>
 
