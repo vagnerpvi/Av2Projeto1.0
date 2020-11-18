@@ -6,6 +6,7 @@
 
 	<display-name>Lista Notas</display-name>
 	<welcome-file-list>
+	 
 	  <welcome-file>login.jsp</welcome-file>
 	    <welcome-file>menu.jsp</welcome-file>
 		<welcome-file>index.html</welcome-file>

@@ -19,7 +19,7 @@ import com.Av2Projeto.model.domain.Login;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet( name="validar",urlPatterns = { "/validar"})
+@WebServlet(urlPatterns = { "/validar","/cadastrarLogin"})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,19 +27,12 @@ public class LoginServlet extends HttpServlet {
 	
 
 	public void init() throws ServletException {
-		
-		/*
-		 * boolean result; ConexaoJDBCFactory con = new ConexaoJDBCFactory();
-		 * 
-		 * 
-		 * try { result= con.Cria_Database_Completa(); con.insere_dados();
-		 * 
-		 * } catch (ClassNotFoundException | SQLException e) {
-		 * 
-		 * e.printStackTrace(); }
-		 */
-		
-			 
+		try {
+			criarDatabase();
+		} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -71,6 +64,15 @@ public class LoginServlet extends HttpServlet {
 			
 			
 			break;
+			
+		case "/cadastrarLogin":
+			try {
+				cadastrarLogin(request, response);
+			} catch (ClassNotFoundException | SQLException | IOException | ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 
 		case "/deletarLogin":
 			delatarLogin(request, response);
@@ -91,6 +93,13 @@ public class LoginServlet extends HttpServlet {
 			listarLogin(request, response);
 			break;
 
+		
+			
+			 
+		/*
+		 * case "/CriarUsuario": CriarUsuario(request, response); break; case
+		 * "/InserirDadosAutomaticos": inserirDados(request, response); break;
+		 */
 		}
 
 	}
@@ -125,7 +134,20 @@ public class LoginServlet extends HttpServlet {
 				;
 			}	
 		}
-	
+	private void cadastrarLogin(HttpServletRequest request, HttpServletResponse response)
+			throws ClassNotFoundException, SQLException, IOException, ServletException {
+		
+			String matricula = request.getParameter("matricula");
+			String senha = request.getParameter("senha");
+
+			Login login = new Login(matricula,senha);
+			
+			System.out.println("matricula" + matricula);
+			System.out.println("senha" + senha);
+
+			loginDao.AdicionarLogin(login);
+				
+	}
 
 	// DELETAR ALUNO
 	private void delatarLogin(HttpServletRequest request, HttpServletResponse response)
@@ -207,6 +229,22 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
+	}
+		protected void criarDatabase()
+				throws ServletException, IOException, ClassNotFoundException, SQLException {
+			
+		
+			 ConexaoJDBCFactory cria = new ConexaoJDBCFactory();
+			          cria.conexaoComServidor();
+			          cria.Cria_Database_Completa(); 
+			          cria.insere_dados();
+			         // cria.insere_dados();
+			
+			  
+			 
+		
+		
+		
 	}
 
 }

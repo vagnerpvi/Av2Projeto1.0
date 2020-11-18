@@ -22,40 +22,40 @@
 </head>
 <body>
 
-	<div class="divCenter">
-		<header style="text-align: center;">PORTAL DA UNIVERSIDADE</header>
-
-		<div class="container">
-
-			<div class="container col-md-5">
-				<div card="card">
-					<div card="card-body">
-
-						<form action="<%=request.getContextPath()%>/validar" method="get">
-
-
-							<fieldset class="form-group">
-								<label for="text">Matricula:</label> <input type="text"
-									class="form-control" placeholder="Enter Matricula"
-									id="matricula" name="matricula">
-							</fieldset>
-
-							<fieldset class="form-group">
-								<label for="pwd">Senha:</label> <input type="password"
-									class="form-control" placeholder="Enter Senha" id="senha"
-									name="senha">
-							</fieldset>
-
-							<button type="submit" class="btn btn-success">Entrar</button>
-							<button type="submit" class="btn btn-success">Cadastrar</button>
-
-						</form>
-
+		<div class="divCenter">
+			<header style="text-align: center;">PORTAL DA UNIVERSIDADE</header>
+	
+			<div class="container">
+	
+				<div class="container col-md-5">
+					<div card="card">
+						<div card="card-body">
+	
+							<form action="<%=request.getContextPath()%>/validar" method="get">
+	
+	
+								<fieldset class="form-group">
+									<label for="text">Matricula:</label> <input type="text"
+										class="form-control" placeholder="Enter Matricula"
+										id="matricula" name="matricula">
+								</fieldset>
+	
+								<fieldset class="form-group">
+									<label for="pwd">Senha:</label> <input type="password"
+										class="form-control" placeholder="Enter Senha" id="senha"
+										name="senha">
+								</fieldset>
+	
+								<button type="submit" class="btn btn-success">Entrar</button>
+								<button type="submit" class="btn btn-success" action="<%=request.getContextPath()%>/CadastrarLogin" method="get">Cadastrar</button>
+	
+							</form>
+	
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
 	<!-- 			<img src="./img/livro.jpg"> -->
 </body>

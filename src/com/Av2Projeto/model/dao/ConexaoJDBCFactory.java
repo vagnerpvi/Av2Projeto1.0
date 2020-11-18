@@ -110,7 +110,7 @@ public class ConexaoJDBCFactory {
 				tabCriada = false;
 			}
 
-			//insere_dados();
+			// insere_dados();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -122,10 +122,10 @@ public class ConexaoJDBCFactory {
 	private boolean cria_tabela_turma() throws ClassNotFoundException, SQLException {
 
 		boolean tabCriada = false;
-		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`turma` (\r\n" + "  `id_turma` INT NOT NULL AUTO_INCREMENT ,\r\n"
-				+ "  `periodoLetivo` varchar(100) NOT NULL,\r\n" + "  `tipo` varchar(100) not null,\r\n"
-				+ "  PRIMARY KEY (`id_turma`))\r\n" + "ENGINE = InnoDB\r\n" + "DEFAULT CHARACTER SET = utf8mb4\r\n"
-				+ "COLLATE = utf8mb4_0900_ai_ci;";
+		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`turma` (\r\n"
+				+ "  `id_turma` INT NOT NULL AUTO_INCREMENT ,\r\n" + "  `periodoLetivo` varchar(100),\r\n"
+				+ "  `tipo` varchar(100),\r\n" + "  PRIMARY KEY (`id_turma`))\r\n" + "ENGINE = InnoDB\r\n"
+				+ "DEFAULT CHARACTER SET = utf8mb4\r\n" + "COLLATE = utf8mb4_0900_ai_ci;";
 		Connection conexao = ConexaoJDBCFactory.getConexao();
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.execute();
@@ -157,9 +157,10 @@ public class ConexaoJDBCFactory {
 	private boolean cria_tabela_aluno() throws ClassNotFoundException, SQLException {
 
 		boolean tabCriada = false;
-		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`aluno` (\r\n" + "  `id_aluno` INT NOT NULL AUTO_INCREMENT ,\r\n"
-				+ "  `nome` VARCHAR(40) ,\r\n" + "  `curso` VARCHAR(50) ,\r\n" + "  `id_professor` INT,\r\n"
-				+ "  PRIMARY KEY (`id_aluno`),\r\n" + "    FOREIGN KEY (`id_professor`)\r\n"
+		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`aluno` (\r\n"
+				+ "  `id_aluno` INT NOT NULL AUTO_INCREMENT ,\r\n" + "  `nome` VARCHAR(40) ,\r\n"
+				+ "  `curso` VARCHAR(50) ,\r\n" + "  `id_professor` INT,\r\n" + "  PRIMARY KEY (`id_aluno`),\r\n"
+				+ "    FOREIGN KEY (`id_professor`)\r\n"
 				+ "    REFERENCES `trabalho_academico`.`professor` (`id_professor`)\r\n" + " ON DELETE SET NULL\r\n"
 				+ " ON UPDATE CASCADE\r\n" + ")ENGINE = InnoDB\r\n" + "DEFAULT CHARACTER SET = utf8mb4\r\n"
 				+ "COLLATE = utf8mb4_0900_ai_ci;";
@@ -194,9 +195,9 @@ public class ConexaoJDBCFactory {
 
 		boolean tabCriada = false;
 		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`aluno_disciplina` (\r\n"
-				+ "  `id_aluno` INT NOT NULL,\r\n" + "  `id_disciplina` INT NOT NULL,\r\n"
-				+ "  PRIMARY KEY (`id_aluno`, `id_disciplina`),\r\n" + "    FOREIGN KEY (`id_aluno`)\r\n"
-				+ "    REFERENCES `trabalho_academico`.`aluno` (`id_aluno`),\r\n"
+				+ "  `id_aluno_disciplina` INT NOT NULL AUTO_INCREMENT,\r\n" + "  `id_aluno` INT NOT NULL,\r\n"
+				+ "  `id_disciplina` INT NOT NULL,\r\n" + "  PRIMARY KEY ( `id_aluno_disciplina`),\r\n"
+				+ "    FOREIGN KEY (`id_aluno`)\r\n" + "    REFERENCES `trabalho_academico`.`aluno` (`id_aluno`),\r\n"
 				+ "    FOREIGN KEY (`id_disciplina`)\r\n"
 				+ "    REFERENCES `trabalho_academico`.`disciplina` (`id_disciplina`)\r\n"
 				+ "     ON DELETE CASCADE\r\n" + "     ON UPDATE CASCADE\r\n" + ")ENGINE = InnoDB\r\n"
@@ -213,14 +214,14 @@ public class ConexaoJDBCFactory {
 	private boolean cria_tabela_nota() throws ClassNotFoundException, SQLException {
 
 		boolean tabCriada = false;
-		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`nota` (\r\n" + "  `id_nota` INT NOT NULL AUTO_INCREMENT ,\r\n"
-				+ "   `av1` float,\r\n" + "    `av2` float,\r\n" + "    `av3`  float,\r\n" + "	`aps_1` float,\r\n"
-				+ "	`aps_2` float,\r\n" + "    `media` float,\r\n"  + "  `id_aluno` INT,\r\n"
-				+ "  `id_turma` INT,\r\n" + "  PRIMARY KEY (`id_nota`),\r\n" + "   FOREIGN KEY (`id_aluno`)\r\n"
-				+ "    REFERENCES `trabalho_academico`.`aluno` (`id_aluno`),\r\n" + "    FOREIGN KEY (`id_turma`)\r\n"
-				+ "    REFERENCES `trabalho_academico`.`turma` (`id_turma`)\r\n" + "      ON DELETE CASCADE\r\n"
-				+ "     ON UPDATE CASCADE\r\n" + ")ENGINE = InnoDB\r\n" + "DEFAULT CHARACTER SET = utf8mb4\r\n"
-				+ "COLLATE = utf8mb4_0900_ai_ci;";
+		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`nota` (\r\n"
+				+ "  `id_nota` INT NOT NULL AUTO_INCREMENT ,\r\n" + "   `av1` float,\r\n" + "    `av2` float,\r\n"
+				+ "    `av3`  float,\r\n" + "	`aps_1` float,\r\n" + "	`aps_2` float,\r\n" + "    `media` float,\r\n"
+				+ "  `id_aluno` INT,\r\n" + "  `id_turma` INT,\r\n" + "  PRIMARY KEY (`id_nota`),\r\n"
+				+ "   FOREIGN KEY (`id_aluno`)\r\n" + "    REFERENCES `trabalho_academico`.`aluno` (`id_aluno`),\r\n"
+				+ "    FOREIGN KEY (`id_turma`)\r\n" + "    REFERENCES `trabalho_academico`.`turma` (`id_turma`)\r\n"
+				+ "      ON DELETE CASCADE\r\n" + "     ON UPDATE CASCADE\r\n" + ")ENGINE = InnoDB\r\n"
+				+ "DEFAULT CHARACTER SET = utf8mb4\r\n" + "COLLATE = utf8mb4_0900_ai_ci;";
 		Connection conexao = ConexaoJDBCFactory.getConexao();
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.execute();
@@ -235,8 +236,8 @@ public class ConexaoJDBCFactory {
 		boolean tabCriada = false;
 		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`login` (\r\n"
 				+ "  `matricula` VARCHAR(100) NOT NULL,\r\n" + "  `senha` VARCHAR(100) NULL,\r\n"
-				+ "  PRIMARY KEY (`matricula`)\r\n" + ")ENGINE = InnoDB\r\n" + "DEFAULT CHARACTER SET = utf8mb4\r\n"
-				+ "COLLATE = utf8mb4_0900_ai_ci;";
+				+ "  PRIMARY KEY (`matricula`)\r\n" + "  )ENGINE = InnoDB\r\n" + "  DEFAULT CHARACTER SET = utf8mb4\r\n"
+				+ "  COLLATE = utf8mb4_0900_ai_ci;";
 		Connection conexao = ConexaoJDBCFactory.getConexao();
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.execute();
@@ -259,11 +260,91 @@ public class ConexaoJDBCFactory {
 	}
 
 	public void insere_dados() throws ClassNotFoundException, SQLException {
-	
-		String sql = "insert into login values('3333','3333');";
+
 		Connection conexao = ConexaoJDBCFactory.getConexao();
-		PreparedStatement ps = conexao.prepareStatement(sql);
+
+		String sqlt = "insert into turma values (1,'5','Presencial');";
+		String sqlt1 = "insert into turma values (2,'6','EAD');";
+		String sqlt2 = "insert into turma values (3,'1','Presencial');";
+
+		PreparedStatement ps = conexao.prepareStatement(sqlt);
+		PreparedStatement ps1 = conexao.prepareStatement(sqlt1);
+		PreparedStatement ps2 = conexao.prepareStatement(sqlt2);
 		ps.execute();
+		ps1.execute();
+		ps2.execute();
+
+		String sqlp = "insert into professor values (1,'Manoel','Dr',1);";
+		String sqlp1 = "insert into professor values (2,'Tavares','Dr',2);";
+		String sqlp2 = "insert into professor values (3,'Zanetti','Dr',2);";
+
+		PreparedStatement ps3 = conexao.prepareStatement(sqlp);
+		PreparedStatement ps4 = conexao.prepareStatement(sqlp1);
+		PreparedStatement ps5 = conexao.prepareStatement(sqlp2);
+		ps3.execute();
+		ps4.execute();
+		ps5.execute();
+
+		String sqld = "insert into disciplina values (1,'Algoritm',60,1);";
+		String sqld1 = "insert into disciplina values (2,'Redes',60,2);";
+		String sqld2 = "insert into disciplina values (3,'Engenharia',60,3);";
+
+		PreparedStatement ps6 = conexao.prepareStatement(sqld);
+		PreparedStatement ps7 = conexao.prepareStatement(sqld1);
+		PreparedStatement ps8 = conexao.prepareStatement(sqld2);
+		ps6.execute();
+		ps7.execute();
+		ps8.execute();
+
+		String sqla = " insert into aluno values (1,'Paulo','CC',1);";
+		String sqla1 = "insert into aluno values (2,'Manoel','Redes',1);";
+		String sqla2 = "insert into aluno values (3,'Pedro','CC',2);";
+		String sqla3 = "insert into aluno values (4,'Maria','Redes',2);";
+
+		PreparedStatement ps9 = conexao.prepareStatement(sqla);
+		PreparedStatement ps10 = conexao.prepareStatement(sqla1);
+		PreparedStatement ps11 = conexao.prepareStatement(sqla2);
+		PreparedStatement ps12 = conexao.prepareStatement(sqla3);
+		ps9.execute();
+		ps10.execute();
+		ps11.execute();
+		ps12.execute();
+
+		String sqlad  = "insert into  aluno_disciplina values (1,1,2);";
+		String sqlad1 = "insert into  aluno_disciplina values (2,1,1);";
+		String sqlad2 = "insert into  aluno_disciplina values (3,2,2);";
+		String sqlad3 = "insert into  aluno_disciplina values (4,3,1);";
+		
+		PreparedStatement ps14 = conexao.prepareStatement(sqlad);
+		PreparedStatement ps15 = conexao.prepareStatement(sqlad1);
+		PreparedStatement ps16 = conexao.prepareStatement(sqlad2);
+		PreparedStatement ps17 = conexao.prepareStatement(sqlad3);
+
+		ps14.execute();
+		ps15.execute();
+		ps16.execute();
+		ps17.execute();
+
+		String sqln = "insert into nota values(1,5,8,8,1,2,9,1,1);";
+		String sqln1 = "insert into nota values(2,5,8,8,1,2,9,1,1);";
+		String sqln2 = "insert into nota values(3,5,8,8,1,2,9,1,1);";
+
+		PreparedStatement ps18 = conexao.prepareStatement(sqln);
+		PreparedStatement ps19 = conexao.prepareStatement(sqln1);
+		PreparedStatement ps20 = conexao.prepareStatement(sqln2);
+		ps18.execute();
+		ps19.execute();
+		ps20.execute();
+
+		String sqll = "insert into login values('1111','1234');";
+		String sqll1 = "insert into login values('2222','4321');";
+
+		PreparedStatement ps21 = conexao.prepareStatement(sqll);
+		PreparedStatement ps22 = conexao.prepareStatement(sqll1);
+
+		ps21.execute();
+		ps22.execute();
+
 	}
 
 }
