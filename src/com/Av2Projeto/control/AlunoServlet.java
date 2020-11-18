@@ -87,6 +87,11 @@ public class AlunoServlet extends HttpServlet {
 		String curso = request.getParameter("curso");
 		Integer id_professor = Integer.parseInt(request.getParameter("id_professor"));
 
+		
+		System.out.println("nome"+nome);
+		System.out.println("curso"+curso);
+		System.out.println("id_professor"+id_professor);
+		
 		Aluno aluno = new Aluno(null, nome, curso, id_professor);
 
 		try {

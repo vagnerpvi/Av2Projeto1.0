@@ -11,12 +11,12 @@ import com.Av2Projeto.model.domain.Login;
 
 public class LoginDao {
 
-	private static final String INSERT_LOGIN_SQL = "insert into login(matricula,senha,id_aluno,id_professor)values(?,?,?,?)";
-	private static final String SELECT_LOGIN_BY_ID = "select id_login,id_aluno,id_professor from login where id_login =?";
+	private static final String INSERT_LOGIN_SQL = "insert into login(matricula,senha)values(?,?,?,?)";
+	private static final String SELECT_LOGIN_BY_ID = "";
 	private static final String SELECT_ALL_LOGIN = "select*from login";
 	private static final String SELECT_VALIDACAO = "select*from login where matricula =? and senha=? ";
 	private static final String DELETE_LOGIN_SQL = "delete from login where matricula=?";
-	private static final String UPDATE_LOGIN_SQL = "update login set matricula=?, senha=?, id_aluno =?,id_professor =?  where matricula=?";
+	private static final String UPDATE_LOGIN_SQL = "update login set matricula=?, senha=? where matricula=?";
 
 	public LoginDao() {
 		super();

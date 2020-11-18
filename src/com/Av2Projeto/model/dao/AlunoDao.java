@@ -31,10 +31,12 @@ public class AlunoDao {
 		ps.setString(1, aluno.getNome());
 		ps.setString(2, aluno.getCurso());
 		ps.setInt(3, aluno.getId_professor());
-
-		ps.execute();
-
+            
+		System.out.println("nome"+aluno.getNome());
+		System.out.println("curso"+aluno.getCurso());
+		System.out.println("id_professor"+aluno.getId_professor());
 		
+		ps.execute();
 
 	}
 

@@ -63,7 +63,6 @@ public class ConexaoJDBCFactory {
 		boolean criadaComSucesso = true;
 		if (conexaoComServidor()) {
 			if (!CriaDatabase()) {
-				criar_usuario();
 				criadaComSucesso = false;
 			} else if (!CriaTabelas()) {
 				criadaComSucesso = false;
@@ -111,7 +110,7 @@ public class ConexaoJDBCFactory {
 				tabCriada = false;
 			}
 
-			insere_dados();
+			//insere_dados();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -123,7 +122,7 @@ public class ConexaoJDBCFactory {
 	private boolean cria_tabela_turma() throws ClassNotFoundException, SQLException {
 
 		boolean tabCriada = false;
-		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`turma` (\r\n" + "  `id_turma` INT NOT NULL,\r\n"
+		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`turma` (\r\n" + "  `id_turma` INT NOT NULL AUTO_INCREMENT ,\r\n"
 				+ "  `periodoLetivo` varchar(100) NOT NULL,\r\n" + "  `tipo` varchar(100) not null,\r\n"
 				+ "  PRIMARY KEY (`id_turma`))\r\n" + "ENGINE = InnoDB\r\n" + "DEFAULT CHARACTER SET = utf8mb4\r\n"
 				+ "COLLATE = utf8mb4_0900_ai_ci;";
@@ -140,7 +139,7 @@ public class ConexaoJDBCFactory {
 
 		boolean tabCriada = false;
 		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`professor` (\r\n"
-				+ "  `id_professor` INT NOT NULL,\r\n" + "  `nome` VARCHAR(40) NOT NULL,\r\n"
+				+ "  `id_professor` INT NOT NULL AUTO_INCREMENT ,\r\n" + "  `nome` VARCHAR(40) NOT NULL,\r\n"
 				+ "  `titulacao` VARCHAR(50) NOT NULL,\r\n" + "  `id_turma` INT,\r\n"
 				+ "  PRIMARY KEY (`id_professor`),\r\n" + "  FOREIGN KEY (`id_turma`)\r\n"
 				+ "REFERENCES `trabalho_academico`.`turma` (`id_turma`)\r\n" + " ON DELETE SET NULL\r\n"
@@ -158,7 +157,7 @@ public class ConexaoJDBCFactory {
 	private boolean cria_tabela_aluno() throws ClassNotFoundException, SQLException {
 
 		boolean tabCriada = false;
-		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`aluno` (\r\n" + "  `id_aluno` INT NOT NULL,\r\n"
+		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`aluno` (\r\n" + "  `id_aluno` INT NOT NULL AUTO_INCREMENT ,\r\n"
 				+ "  `nome` VARCHAR(40) ,\r\n" + "  `curso` VARCHAR(50) ,\r\n" + "  `id_professor` INT,\r\n"
 				+ "  PRIMARY KEY (`id_aluno`),\r\n" + "    FOREIGN KEY (`id_professor`)\r\n"
 				+ "    REFERENCES `trabalho_academico`.`professor` (`id_professor`)\r\n" + " ON DELETE SET NULL\r\n"
@@ -177,7 +176,7 @@ public class ConexaoJDBCFactory {
 
 		boolean tabCriada = false;
 		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`disciplina` (\r\n"
-				+ "  `id_disciplina` INT NOT NULL,\r\n" + "  `nome` VARCHAR(40) NOT NULL,\r\n"
+				+ "  `id_disciplina` INT NOT NULL AUTO_INCREMENT ,\r\n" + "  `nome` VARCHAR(40) NOT NULL,\r\n"
 				+ "  `carga` SMALLINT NOT NULL,\r\n" + "   `id_turma` INT,\r\n" + "  PRIMARY KEY (`id_disciplina`),\r\n"
 				+ "   FOREIGN KEY (`id_turma`)\r\n" + "    REFERENCES `trabalho_academico`.`turma` (`id_turma`)\r\n"
 				+ "  ON DELETE CASCADE\r\n" + " ON UPDATE CASCADE\r\n" + ")ENGINE = InnoDB\r\n"
@@ -214,9 +213,9 @@ public class ConexaoJDBCFactory {
 	private boolean cria_tabela_nota() throws ClassNotFoundException, SQLException {
 
 		boolean tabCriada = false;
-		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`nota` (\r\n" + "  `id_nota` INT NOT NULL,\r\n"
+		String sql = "CREATE TABLE IF NOT EXISTS `trabalho_academico`.`nota` (\r\n" + "  `id_nota` INT NOT NULL AUTO_INCREMENT ,\r\n"
 				+ "   `av1` float,\r\n" + "    `av2` float,\r\n" + "    `av3`  float,\r\n" + "	`aps_1` float,\r\n"
-				+ "	`aps_2` float,\r\n" + "    `media` float,\r\n" + "    `faltas` int,\r\n" + "  `id_aluno` INT,\r\n"
+				+ "	`aps_2` float,\r\n" + "    `media` float,\r\n"  + "  `id_aluno` INT,\r\n"
 				+ "  `id_turma` INT,\r\n" + "  PRIMARY KEY (`id_nota`),\r\n" + "   FOREIGN KEY (`id_aluno`)\r\n"
 				+ "    REFERENCES `trabalho_academico`.`aluno` (`id_aluno`),\r\n" + "    FOREIGN KEY (`id_turma`)\r\n"
 				+ "    REFERENCES `trabalho_academico`.`turma` (`id_turma`)\r\n" + "      ON DELETE CASCADE\r\n"
@@ -259,13 +258,12 @@ public class ConexaoJDBCFactory {
 
 	}
 
-	private void insere_dados() throws ClassNotFoundException, SQLException {
-		String sql1 = "vagber";
-		String sql = "insert into login values('1111','1234');\r\n" + "insert into login values('2222','4321');";
+	public void insere_dados() throws ClassNotFoundException, SQLException {
+	
+		String sql = "insert into login values('3333','3333');";
 		Connection conexao = ConexaoJDBCFactory.getConexao();
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.execute();
-
 	}
 
 }

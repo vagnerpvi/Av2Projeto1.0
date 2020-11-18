@@ -28,18 +28,18 @@ public class LoginServlet extends HttpServlet {
 
 	public void init() throws ServletException {
 		
-		boolean result;
-		 ConexaoJDBCFactory con = new  ConexaoJDBCFactory();
-		         
-		try {
-			result= con.Cria_Database_Completa();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		/*
+		 * boolean result; ConexaoJDBCFactory con = new ConexaoJDBCFactory();
+		 * 
+		 * 
+		 * try { result= con.Cria_Database_Completa(); con.insere_dados();
+		 * 
+		 * } catch (ClassNotFoundException | SQLException e) {
+		 * 
+		 * e.printStackTrace(); }
+		 */
+		
+			 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -114,7 +114,6 @@ public class LoginServlet extends HttpServlet {
 
 			Login login = new Login(matricula,senha);
 			
-
 			System.out.println("matricula" + matricula);
 			System.out.println("senha" + senha);
 

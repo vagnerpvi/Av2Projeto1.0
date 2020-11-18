@@ -46,7 +46,7 @@
 									name="senha">
 							</fieldset>
 
-							<button type="submit" class="btn btn-success">Salvar</button>
+							<button type="submit" class="btn btn-success">Entrar</button>
 							<button type="submit" class="btn btn-success">Cadastrar</button>
 
 						</form>

@@ -1,7 +1,7 @@
 package com.Av2Projeto.model.domain;
 
 public class Professor {
-	private int id_professor;
+	private Integer id_professor;
 	private String nome;
 	private String titulacao;
 
@@ -9,7 +9,7 @@ public class Professor {
 		super();
 	}
 
-	public Professor(int id_professor, String nome, String titulacao) {
+	public Professor(Integer id_professor, String nome, String titulacao) {
 		super();
 		this.id_professor = id_professor;
 		this.nome = nome;
@@ -20,7 +20,7 @@ public class Professor {
 		return id_professor;
 	}
 
-	public void setId_professor(int id_professor) {
+	public void setId_professor(Integer id_professor) {
 		this.id_professor = id_professor;
 	}
 
