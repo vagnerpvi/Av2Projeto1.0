@@ -96,12 +96,6 @@ public class NotaServlet extends HttpServlet {
 		float media = CalculaMedia(av1, av2, av3, aps_1, aps_2);
 		Integer id_aluno = Integer.parseInt(request.getParameter("id_aluno"));
 		Integer id_turma = Integer.parseInt(request.getParameter("id_turma"));
-		System.out.println("Notas ServLet av1-" + av1);
-		System.out.println("Notas ServLet av2-" + av2);
-		System.out.println("Notas ServLet av3-" + av3);
-		System.out.println("Notas ServLet aaps_1-" + aps_1);
-		System.out.println("Notas ServLet aps_2-" + aps_2);
-		System.out.println("Notas ServLet media-" + media);
            
 		Nota nota = new Nota(null, somaAv1(av1,aps_1),somaAv2(av2,aps_2), av3, aps_1, aps_2, media, id_aluno, id_turma);
 
@@ -174,7 +168,7 @@ public class NotaServlet extends HttpServlet {
 		Integer id_aluno = Integer.parseInt(request.getParameter("id_aluno"));
 		Integer id_turma = Integer.parseInt(request.getParameter("id_turma"));
 		float media = 0;
-		Nota nota = new Nota(id_nota, av1, av2, av3, aps_1, aps_2, media, id_aluno, id_turma);
+		Nota nota = new Nota(id_nota, somaAv1(av1,aps_1), somaAv2(av2,aps_2), av3, aps_1, aps_2, media, id_aluno, id_turma);
 
 		try {
 			notaDao.atualizarNota(nota);

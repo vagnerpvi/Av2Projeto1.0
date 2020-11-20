@@ -7,7 +7,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>LISTA DE ALUNOS</title>
 </head>
 <body>
 

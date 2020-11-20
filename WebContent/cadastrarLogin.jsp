@@ -30,7 +30,7 @@
       <input type="password" placeholder="senha" required name="senha"/>
     <button>Salvar</button>
     
-      <p class="message">Já e Registrado? <a href=""href="<%=request.getContextPath()%>/showLogin"">Login</a></p>
+      <p class="message">Já e Registrado? <a href="<%=request.getContextPath()%>/showLogin">Login</a></p>
     </form>
   </div>
 </div>

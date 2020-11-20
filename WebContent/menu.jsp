@@ -27,53 +27,62 @@
 </head>
 <body>
 
-<header>
- <nav class="navbar navbar-expand-sm bg-light navbar-light">
-
-		<div class="btn-group">
-
-			<div class="btn-group">
-				<button type="button" class="btn btn-primary dropdown-toggle"
-					data-toggle="dropdown">Notas</button>
-				<div class="dropdown-menu">
-
-					<a class="dropdown-item" href="nota-list.jsp"> <i
-						 aria-hidden="true"></i> Cadastrar Nota
-					</a> 
-					
-					<a class="dropdown-item" href="#">
-					<i  aria-hidden="true"></i>Listar
-						Notas </a> 
-						
-						<a class="dropdown-item" href="#"><i
-						aria-hidden="true"></i>Estatistica Notas</a>
-				</div>
-			</div>
-
-			<div class="btn-group">
-				<button type="button" class="btn btn-primary dropdown-toggle"
-					data-toggle="dropdown">Cadastrar</button>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="aluno-list.jsp"> <i
-						class="fa fa-user fa-fw"></i>Aluno
-					</a> <a class="dropdown-item" href="#"> <i class="fa fa-user fa-fw"></i>Professor
-					</a> <a class="dropdown-item" href="#">Curso</a> <a
-						class="dropdown-item" href="#">Disciplina</a> <a
-						class="dropdown-item" href="nota-list.jsp">Notas</a>
-				</div>
-			</div>
-			<button type="button" class="btn btn-primary">Sair</button>
-		</div>
+	<header>
+		<nav class="navbar navbar-expand-sm bg-light navbar-light">
 
 
-	</nav>
-</header>
-	
+
+ <div class="btn-group">
+  <button type="button" class="btn btn-primary">NOTA</button>
+  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+    <span class="caret"></span>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="nota-list.jsp">CADASTRAR NOTA</a>
+    <a class="dropdown-item" href="nota-list.jsp">LISTAR NOTAS</a>
+      <a class="dropdown-item" href="#">ESTATISTICA NOTAS</a>
+  </div>
+  
+</div> 
+ <div class="btn-group">
+  <button type="button" class="btn btn-primary">ALUNO</button>
+  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+    <span class="caret"></span>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="aluno.jsp">CADASTRAR ALUNO</a>
+    <a class="dropdown-item" href="aluno-list.jsp">LISTAR ALUNOS</a>
+  </div>
+</div> 
+
+ <div class="btn-group">
+  <button type="button" class="btn btn-primary">PROFESSOR</button>
+  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+    <span class="caret"></span>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">CADASTRAR PROFESSOR</a>
+    <a class="dropdown-item" href="#">LISTAR PROFESSOR</a>
+  </div>
+</div> 
+
+
+ <div class="btn-group">
+  <a href="login.jsp" class="btn-group"><button type="button" class="btn btn-primary">SAIR</button>
+  </a>
+  
+</div> 
+
+		</nav>
+		
+		
+	</header>
+
 	<img src="./img/logo.jpg">
 
 
-<footer>
-  <adress> www.Exemplo.unicarioca.com.br</adress>
-</footer>
+	<footer>
+		<adress> www.Exemplo.unicarioca.com.br</adress>
+	</footer>
 </body>
 </html>
