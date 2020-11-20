@@ -11,7 +11,7 @@ import com.Av2Projeto.model.domain.Login;
 
 public class LoginDao {
 
-	private static final String INSERT_LOGIN_SQL = "insert into login(matricula,senha)values(?,?,?,?)";
+	private static final String INSERT_LOGIN_SQL = "insert into login(matricula,senha)values(?,?)";
 	private static final String SELECT_LOGIN_BY_ID = "";
 	private static final String SELECT_ALL_LOGIN = "select*from login";
 	private static final String SELECT_VALIDACAO = "select*from login where matricula =? and senha=? ";

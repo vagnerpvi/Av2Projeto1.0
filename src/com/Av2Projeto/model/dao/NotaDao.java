@@ -37,6 +37,12 @@ public class NotaDao {
 		ps.setInt(7, nota.getId_aluno());
 		ps.setInt(8, nota.getId_turma());
 
+		 System.out.println("Notas Dao av1"+nota.getAv1());
+	        System.out.println("Notas Dao av2"+nota.getAv2());
+	        System.out.println("Notas Dao av3"+nota.getAv3());
+	        System.out.println("Notas Dao aps_1"+nota.getAps_1());
+	        System.out.println("Notas Dao aps_2"+nota.getAps_2());
+	        System.out.println("Notas Dao media"+nota.getMedia());
 		ps.execute();
 	
 
@@ -137,5 +143,8 @@ public class NotaDao {
 		return rowDeletada;
 
 	}
+	
+
+	
 
 }

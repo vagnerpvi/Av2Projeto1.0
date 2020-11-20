@@ -18,29 +18,26 @@ import com.Av2Projeto.model.domain.Nota;
 /**
  * Servlet implementation class NotaServlet
  */
-@WebServlet( urlPatterns={"/nota","/home","/inserirNota","/deletarNota","/editarNota","/atualizarNota","/listaNotas"})
+@WebServlet(urlPatterns = { "/nota", "/home", "/inserirNota", "/deletarNota", "/editarNota", "/atualizarNota",
+		"/listaNotas" })
 public class NotaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private NotaDao notaDao;
-	
+
 	public void init() {
-		
+
 		notaDao = new NotaDao();
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/menu.jsp");
 		dispatcher.forward(request, response);
 
-		
 	}
-
-
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -90,17 +87,23 @@ public class NotaServlet extends HttpServlet {
 	// ADICIONAR
 	private void adicionarNota(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
+
 		float av1 = Float.parseFloat(request.getParameter("av1"));
 		float av2 = Float.parseFloat(request.getParameter("av2"));
 		float av3 = Float.parseFloat(request.getParameter("av3"));
 		float aps_1 = Float.parseFloat(request.getParameter("aps_1"));
 		float aps_2 = Float.parseFloat(request.getParameter("aps_2"));
-		float media = 0;
+		float media = CalculaMedia(av1, av2, av3, aps_1, aps_2);
 		Integer id_aluno = Integer.parseInt(request.getParameter("id_aluno"));
 		Integer id_turma = Integer.parseInt(request.getParameter("id_turma"));
-
-		Nota nota = new Nota(null, av1, av2, av3, aps_1, aps_2, media, id_aluno, id_turma);
+		System.out.println("Notas ServLet av1-" + av1);
+		System.out.println("Notas ServLet av2-" + av2);
+		System.out.println("Notas ServLet av3-" + av3);
+		System.out.println("Notas ServLet aaps_1-" + aps_1);
+		System.out.println("Notas ServLet aps_2-" + aps_2);
+		System.out.println("Notas ServLet media-" + media);
+           
+		Nota nota = new Nota(null, somaAv1(av1,aps_1),somaAv2(av2,aps_2), av3, aps_1, aps_2, media, id_aluno, id_turma);
 
 		try {
 			notaDao.AdicionarNota(nota);
@@ -114,6 +117,7 @@ public class NotaServlet extends HttpServlet {
 		}
 
 	}
+
 
 	// DELETAR ALUNO
 	private void delatarNota(HttpServletRequest request, HttpServletResponse response)
@@ -140,7 +144,7 @@ public class NotaServlet extends HttpServlet {
 	private void editarNota(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-	int id_nota = Integer.parseInt(request.getParameter("id_nota"));
+		int id_nota = Integer.parseInt(request.getParameter("id_nota"));
 		Nota existeNota;
 		try {
 			existeNota = notaDao.selectById(id_nota);
@@ -167,10 +171,9 @@ public class NotaServlet extends HttpServlet {
 		float av3 = Float.parseFloat(request.getParameter("av3"));
 		float aps_1 = Float.parseFloat(request.getParameter("aps_1"));
 		float aps_2 = Float.parseFloat(request.getParameter("aps_2"));
-		float media = 0;
 		Integer id_aluno = Integer.parseInt(request.getParameter("id_aluno"));
 		Integer id_turma = Integer.parseInt(request.getParameter("id_turma"));
-
+		float media = 0;
 		Nota nota = new Nota(id_nota, av1, av2, av3, aps_1, aps_2, media, id_aluno, id_turma);
 
 		try {
@@ -200,6 +203,47 @@ public class NotaServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
+	}
+
+	private float CalculaMedia(float av1, float av2, float av3, float aps_1, float aps_2) {
+
+		float avaliacao1, avaliacao2, avaliacao3, media;
+
+		avaliacao1 = av1 + aps_1;
+		avaliacao2 = av2+ aps_2;
+		avaliacao3 = av3;
+
+		Float[] nota = { avaliacao1, avaliacao2, avaliacao3 };
+
+		float maior = 0, menor = 0, meio = 0;
+		for (int i = 0; i < nota.length; i++) {
+			menor = nota[1];
+			meio = nota[1];
+			if (nota[i] > maior) {
+				maior = nota[i];
+			} else if (nota[i] < menor) {
+				menor = nota[i];
+			} else if (nota[i] < maior && nota[i] > menor) {
+
+			}
+			System.out.println("maior" + maior);
+			System.out.println("menor" + menor);
+			System.out.println("meio" + meio);
+		}
+		media = (maior + meio) / 2;
+
+		System.out.println("media Calculada" + media);
+		return media;
+	}
+	
+	private float somaAv1(float av1, float aps_1) {
+	float av1Somada =av1+aps_1;
+		return av1Somada;
+	}
+	
+	private float somaAv2(float av2, float aps_2) {
+		float av2Somada =av2+aps_2;
+		return av2Somada;
 	}
 
 }

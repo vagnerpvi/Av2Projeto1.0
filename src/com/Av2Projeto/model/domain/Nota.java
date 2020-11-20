@@ -1,5 +1,7 @@
 package com.Av2Projeto.model.domain;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
 public class Nota {
 	private Integer id_nota;
 	private float av1;
@@ -10,13 +12,15 @@ public class Nota {
 	private float media;
 	private Integer id_aluno;
 	private Integer id_turma;
-	
+
 	public Nota() {
 		super();
 	}
 
-	public Nota(Integer id_nota, float av1, float av2, float av3, float aps_1, float aps_2, float media, Integer id_aluno,
-			Integer id_turma) {
+	
+
+		public Nota(Integer id_nota, float av1, float av2, float av3, float aps_1, float aps_2, float media,
+			Integer id_aluno, Integer id_turma) {
 		super();
 		this.id_nota = id_nota;
 		this.av1 = av1;
@@ -28,6 +32,8 @@ public class Nota {
 		this.id_aluno = id_aluno;
 		this.id_turma = id_turma;
 	}
+
+
 
 	public int getId_nota() {
 		return id_nota;
@@ -100,6 +106,5 @@ public class Nota {
 	public void setId_turma(Integer id_turma) {
 		this.id_turma = id_turma;
 	}
-	
 
 }

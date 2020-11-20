@@ -12,8 +12,8 @@ public class ConexaoJDBCFactory {
 	static String database = "trabalho_academico";
 	static String url = "jdbc:mysql://" + server + "/" + database;
 	static String urlConexaoServidor = "jdbc:mysql://" + server + "/";
-	static String password = "1234";
-	static String username = "root";
+	static String password = "11111";
+	static String username = "DBA";
 
 	static private Connection conexaoComServidor;
 
@@ -63,6 +63,7 @@ public class ConexaoJDBCFactory {
 		boolean criadaComSucesso = true;
 		if (conexaoComServidor()) {
 			if (!CriaDatabase()) {
+				criar_usuario();
 				criadaComSucesso = false;
 			} else if (!CriaTabelas()) {
 				criadaComSucesso = false;
@@ -74,7 +75,7 @@ public class ConexaoJDBCFactory {
 
 	// ------------------------------------------------------------------------------------------
 	public boolean CriaDatabase() throws ClassNotFoundException {
-		boolean conectado = false;
+		boolean criada = false;
 
 		String sql = "CREATE DATABASE IF NOT EXISTS `trabalho_academico` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;";
 
@@ -82,12 +83,12 @@ public class ConexaoJDBCFactory {
 			Connection conexaoServidor = ConexaoJDBCFactory.conexaoComServidor;
 			PreparedStatement ps = conexaoServidor.prepareStatement(sql);
 			ps.execute();
-			conectado = true;
+			criada = true;
 
 		} catch (SQLException e) {
 			System.out.println("Banco de Dados não foi Criado" + e);
 		}
-		return conectado;
+		return criada;
 	}
 
 	public boolean CriaTabelas() throws ClassNotFoundException, SQLException {
@@ -249,13 +250,23 @@ public class ConexaoJDBCFactory {
 
 	private void criar_usuario() throws ClassNotFoundException, SQLException {
 
-		String sql = "CREATE USER 'DBA'@'localhost' IDENTIFIED BY '11111';\r\n"
-				+ "	CREATE USER 'DEV'@'localhost' IDENTIFIED BY '22222';\r\n" + "\r\n"
-				+ "GRANT ALL PRIVILEGES ON trabalhoa_cademico . * TO 'DBA'@'localhost';\r\n" + "\r\n"
-				+ "GRANT SELECT, INSERT,UPDATE ON trabalho_academico.* TO 'DEV'@'localhost';";
 		Connection conexao = ConexaoJDBCFactory.getConexao();
-		PreparedStatement ps = conexao.prepareStatement(sql);
+
+		String sqluser1 = "CREATE USER 'DBA'@'localhost' IDENTIFIED BY '1111';";
+		PreparedStatement ps = conexao.prepareStatement(sqluser1);
 		ps.execute();
+
+		String sqlprevilegios1 = "GRANT ALL PRIVILEGES ON trabalhoa_cademico . * TO 'DBA'@'localhost';";
+		PreparedStatement ps1 = conexao.prepareStatement(sqlprevilegios1);
+		ps1.execute();
+
+		String sqluser2 = "	CREATE USER 'DEV'@'localhost' IDENTIFIED BY '2222';";
+		PreparedStatement psu = conexao.prepareStatement(sqluser2);
+		psu.execute();
+
+		String sqlprevilegios2 = "GRANT SELECT, INSERT,UPDATE ON trabalho_academico.* TO 'DEV'@'localhost';";
+		PreparedStatement ps2 = conexao.prepareStatement(sqlprevilegios2);
+		ps2.execute();
 
 	}
 
@@ -310,11 +321,11 @@ public class ConexaoJDBCFactory {
 		ps11.execute();
 		ps12.execute();
 
-		String sqlad  = "insert into  aluno_disciplina values (1,1,2);";
+		String sqlad = "insert into  aluno_disciplina values (1,1,2);";
 		String sqlad1 = "insert into  aluno_disciplina values (2,1,1);";
 		String sqlad2 = "insert into  aluno_disciplina values (3,2,2);";
 		String sqlad3 = "insert into  aluno_disciplina values (4,3,1);";
-		
+
 		PreparedStatement ps14 = conexao.prepareStatement(sqlad);
 		PreparedStatement ps15 = conexao.prepareStatement(sqlad1);
 		PreparedStatement ps16 = conexao.prepareStatement(sqlad2);
@@ -325,9 +336,9 @@ public class ConexaoJDBCFactory {
 		ps16.execute();
 		ps17.execute();
 
-		String sqln = "insert into nota values(1,5,8,8,1,2,9,1,1);";
-		String sqln1 = "insert into nota values(2,5,8,8,1,2,9,1,1);";
-		String sqln2 = "insert into nota values(3,5,8,8,1,2,9,1,1);";
+		String sqln = "insert into nota values(1,5,8,7,2,2,8.5,1,1);";
+		String sqln1 = "insert into nota values(2,4,7,6,1,2,7.5,1,1);";
+		String sqln2 = "insert into nota values(3,7,8,8,3,2,10,1,1);";
 
 		PreparedStatement ps18 = conexao.prepareStatement(sqln);
 		PreparedStatement ps19 = conexao.prepareStatement(sqln1);

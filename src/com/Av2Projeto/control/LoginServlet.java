@@ -19,7 +19,7 @@ import com.Av2Projeto.model.domain.Login;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet(urlPatterns = { "/validar","/cadastrarLogin"})
+@WebServlet(urlPatterns = { "/validar","/cadastrarLogin","/novoLogin","/showLogin"})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,12 +27,11 @@ public class LoginServlet extends HttpServlet {
 	
 
 	public void init() throws ServletException {
-		try {
-			criarDatabase();
-		} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+		
+		  try { criarDatabase(); } catch (ClassNotFoundException | ServletException |
+		  IOException | SQLException e) { // TODO Auto-generated catch block
+		  e.printStackTrace(); }
+		 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -49,8 +48,12 @@ public class LoginServlet extends HttpServlet {
 
 		switch (acao) {
 
-		case "/Login":
-			Login(request, response);
+		case "/novoLogin":
+			showCadastroLogin(request, response);
+
+			break;
+		case "/showLogin":
+			showLogin(request, response);
 
 			break;
 		case "/validar":
@@ -105,13 +108,17 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	// FORMULARIO ALUNO
-	private void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+	private void showCadastroLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastrarLogin.jsp");
 		dispatcher.forward(request, response);
 		
 	}
 	
-
+	  private void showLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+		dispatcher.forward(request, response);
+		
+	}
 	// ADICIONAR
 	private void validarLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ClassNotFoundException, SQLException, IOException, ServletException {
@@ -146,6 +153,8 @@ public class LoginServlet extends HttpServlet {
 			System.out.println("senha" + senha);
 
 			loginDao.AdicionarLogin(login);
+			
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 				
 	}
 
@@ -237,8 +246,8 @@ public class LoginServlet extends HttpServlet {
 			 ConexaoJDBCFactory cria = new ConexaoJDBCFactory();
 			          cria.conexaoComServidor();
 			          cria.Cria_Database_Completa(); 
-			          cria.insere_dados();
-			         // cria.insere_dados();
+			         cria.insere_dados();
+			        
 			
 			  
 			 

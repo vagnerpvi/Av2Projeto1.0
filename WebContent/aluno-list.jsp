@@ -12,29 +12,25 @@
 <body>
 
 	<header>
-		<nav class="nav-bar navbar-expand-md navbar-dark"
-			style="background-color: blue">
-			<ul>
-				<li><a href=" <%=request.getContextPath()%>/listaAlunos"
-					class="nav-link"><button class="btn btn-success">LISTA
-							ALUNOS</button></a></li>
-			</ul>
-	</header>
-	<div class="row">
-
-		<div class="container">
-
-			<div class="container text-left">
-				<a href=" <%=request.getContextPath()%>/novoAluno" class="nav-link"><button
-						class="btn btn-success">ADICIONAR ALUNO</button></a>
-			</div>
+	
+		
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href=" <%=request.getContextPath()%>/listaAlunos">LISTAR ALUNOS</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href=" <%=request.getContextPath()%>/novoAluno" >NOVO ALUNO</a>
+    </li>
+  
+  </ul>
+</nav>
+		
 
 
-		</div>
-
-	</div>
-	<h2>${mensagem}</h2>
-	<table class="table table-bordered">
+	<div class="container-fluid">
+	<table class="table">
+    <thead class="thead-dark">
 		<thead>
 			<tr>
 				<th>Id_aluno</th>
@@ -61,6 +57,7 @@
 		</tbody>
 		</c:forEach>
 	</table>
+	</div>
 </body>
 
 </html>

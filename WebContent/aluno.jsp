@@ -7,35 +7,30 @@
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/cadastrarAluno.css">
 <title>Cadastro de alunos</title>
 </head>
 <body>
 
 
 	<header>
-		<nav class="nav-bar navbar-expand-md navbar-dark"
-			style="background-color: blue">
-
-			<li><a href=" <%=request.getContextPath()%>/listaAlunos"
-				class="nav-link"><button class="btn btn success">LISTA
-						ALUNOS</button></a></li>
-		</nav>
-		<div class="row">
-
-			<div class="container">
-				<div class="container text-left">
-					<a href=" <%=request.getContextPath()%>/home" class="nav-link"><button
-							align: center class="btn btn success">HOME</button></a>
-				</div>
-			</div>
-		</div>
+	
+	
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href=" <%=request.getContextPath()%>/listaAlunos">LISTAR ALUNOS</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href=" <%=request.getContextPath()%>/home">HOME</a>
+    </li>
+  
+  </ul>
+</nav>
+	
 	</header>
-	<div class="row">
-
-		<div class="container">
-
-			<div class="container col-md-5">
-				<div card="card">
+	<div class="container-fluid">
+	
 					<div card="card-body">
 
 						<c:if test='${aluno != null}'>
@@ -93,8 +88,6 @@
 
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+
 </body>
 </html>
